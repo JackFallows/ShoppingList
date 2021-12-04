@@ -48,9 +48,10 @@ namespace ShoppingList.Pages
             DataService.SaveChanges();
         }
 
-        public void AddNewItem()
+        public void AddNewItem(string category = null)
         {
-            NavManager.NavigateTo($"/list/{Name}/new");
+            var queryString = category == null ? string.Empty : $"?category={category}";
+            NavManager.NavigateTo($"/list/{Name}/new{queryString}");
         }
 
         public async void GetList()

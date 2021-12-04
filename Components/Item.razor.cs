@@ -20,6 +20,9 @@ namespace ShoppingList.Components
         [Parameter]
         public string ItemName { get; set; }
 
+        [Parameter]
+        public string CategoryName { get; set; }
+
         public Store Store { get; set; }
 
         public Product Product { get; set; }
@@ -61,16 +64,16 @@ namespace ShoppingList.Components
             ValidationError = null;
         }
 
-        protected override void OnParametersSet()
+        protected override void OnInitialized()
         {
             Store = DataService.GetStore(StoreName);
-            var existing =Store.Products?.FirstOrDefault(p => p.ProductName == ItemName);
+            var existing = Store.Products?.FirstOrDefault(p => p.ProductName == ItemName);
             if (existing == null)
             {
                 IsNew = true;
             }
 
-            Product = existing ?? new Product();
+            Product = existing ?? new Product { Category = CategoryName };
         }
     }
 }

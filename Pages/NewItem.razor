@@ -1,10 +1,26 @@
 ﻿@page "/list/{store}/new"
+@using ShoppingList.Extensions;
 
 <h3>New item</h3>
 
-<ShoppingList.Components.Item StoreName=@Store />
+<ShoppingList.Components.Item StoreName=@Store CategoryName=@Category />
 
 @code {
+    [Inject]
+    public NavigationManager NavManager { get; set; }
+
     [Parameter]
     public string Store { get; set; }
+
+    public string Category { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (NavManager.TryGetQueryString<string>("category", out var category))
+        {
+            Category = category;
+        }
+    }
 }
