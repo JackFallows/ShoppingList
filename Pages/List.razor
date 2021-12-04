@@ -1,5 +1,19 @@
-﻿<h3>List</h3>
+﻿@page "/list/{name}"
 
-@code {
+<h3>@Store.Name</h3>
+<a href="/">Back to stores list</a>
 
-}
+<h5>Email item format</h5>
+<input class="form-control" type="text" value="@Store.EmailFormat" @onchange="(e) => UpdateEmailFormat((string)e.Value)" />
+
+<h5>Items</h5>
+<ul class="list-group">
+    @foreach (var item in Store.Products)
+    {
+        <li class="list-group-item">
+            <a href="/list/@Name/item/@item.ProductName">@item.ProductName</a>
+        </li>
+    }
+</ul>
+
+<button class="btn btn-primary" @onclick="AddNewItem">Add item</button>

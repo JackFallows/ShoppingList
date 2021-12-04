@@ -1,0 +1,27 @@
+﻿<div class="form-group">
+    <label for="product-name">Product name</label>
+    <input type="text" class="form-control" id="product-name" @bind="Product.ProductName" @oninput="ClearValidation" />
+</div>
+
+<div class="form-group">
+    <label for="product-display-name">Product display name</label>
+    <input type="text" class="form-control" id="product-display-name" @bind="Product.ProductDisplayName" />
+</div>
+
+<div class="form-group">
+    <label for="product-quantity">Quantity</label>
+    <input class="form-control" type="number" min="1" id="product-quantity" @bind="Product.Quantity" />
+</div>
+
+<div class="form-group">
+    <label for="product-url">URL</label>
+    <input type="text" class="form-control" id="product-url" @bind="Product.Preferred" />
+</div>
+
+<button class="btn btn-primary" @onclick="Save">Save</button>
+<a style="margin-left: 10px" href="/list/@StoreName">Cancel</a>
+
+@if (!string.IsNullOrWhiteSpace(ValidationError))
+{
+    <div class="alert alert-danger">@ValidationError</div>
+}

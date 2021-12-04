@@ -1,0 +1,10 @@
+﻿@page "/list/{store}/new"
+
+<h3>New item</h3>
+
+<ShoppingList.Components.Item StoreName=@Store />
+
+@code {
+    [Parameter]
+    public string Store { get; set; }
+}
