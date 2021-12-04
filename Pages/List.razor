@@ -13,7 +13,7 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="mb-0">
-                    @category.Key
+                    @category.Key (@category.Count(i => i.Active))
                     <button class="float-right btn btn-link" @onclick="() => AddNewItem(category.Key)">+</button>
                 </h4>
                 
