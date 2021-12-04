@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ElectronNET.API;
 using ShoppingList.Services;
+using ElectronNET.API.Entities;
 
 namespace ShoppingList
 {
@@ -65,8 +66,12 @@ namespace ShoppingList
 
         private async void CreateWindow()
         {
-            var window = await Electron.WindowManager.CreateWindowAsync();
-            window.SetSize(1280, 720);
+            var window = await Electron.WindowManager.CreateWindowAsync(new BrowserWindowOptions
+            {
+                Width = 1280,
+                Height = 720
+            });
+            
             window.OnClosed += () =>
             {
                 Electron.App.Quit();
