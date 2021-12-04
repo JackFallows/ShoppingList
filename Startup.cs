@@ -66,6 +66,7 @@ namespace ShoppingList
         private async void CreateWindow()
         {
             var window = await Electron.WindowManager.CreateWindowAsync();
+            window.SetSize(1280, 720);
             window.OnClosed += () =>
             {
                 Electron.App.Quit();

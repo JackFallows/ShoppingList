@@ -26,9 +26,9 @@ namespace ShoppingList.Pages
 
         public Store Store { get; set; }
 
-        public List<Product> ActiveProducts => Store.Products.Where(p => p.Active).ToList();
+        public List<Product> ActiveProducts => Store.Products?.Where(p => p.Active).ToList() ?? new();
 
-        public IEnumerable<IGrouping<string, Product>> CategorisedProducts => Store.Products.GroupBy(p => p.CategoryActual);
+        public List<IGrouping<string, Product>> CategorisedProducts => Store.Products?.GroupBy(p => p.CategoryActual).ToList() ?? new();
 
         public void UpdateEmailFormat(string format)
         {
