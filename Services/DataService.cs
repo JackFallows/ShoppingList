@@ -80,7 +80,7 @@ namespace ShoppingList.Services
                 return null;
             }
 
-            return JsonConvert.SerializeObject(Stores);
+            return JsonConvert.SerializeObject(Stores, Formatting.Indented);
         }
     }
 }

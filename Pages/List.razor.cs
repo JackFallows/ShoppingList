@@ -1,4 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using ShoppingList.Models;
 using ShoppingList.Services;
 
@@ -8,6 +14,9 @@ namespace ShoppingList.Pages
     {
         [Inject]
         public NavigationManager NavManager { get; set; }
+
+        [Inject]
+        public IJSRuntime JSRuntime { get; set; }
 
         [Inject]
         public DataService DataService { get; set; }
@@ -26,6 +35,26 @@ namespace ShoppingList.Pages
         public void AddNewItem()
         {
             NavManager.NavigateTo($"/list/{Name}/new");
+        }
+
+        public async void GetList()
+        {
+            var properties = typeof(Product).GetProperties();
+            var propertyNames = properties.Select(p => p.Name).ToList();
+
+            var lines = new List<string>();
+            foreach (var product in Store.Products)
+            {
+                var itemStr = Store.EmailFormat;
+                foreach (var p in propertyNames)
+                {
+                    itemStr = itemStr.Replace($"{{{{{p}}}}}", typeof(Product).GetProperty(p).GetValue(product)?.ToString() ?? string.Empty);
+                }
+
+                lines.Add(itemStr);
+            }
+
+            await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", string.Join(Environment.NewLine, lines));
         }
 
         protected override void OnInitialized()

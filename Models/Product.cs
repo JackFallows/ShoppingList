@@ -12,6 +12,6 @@ namespace ShoppingList.Models
         public List<string> Alternatives { get; set; }
 
         [JsonIgnore]
-        public string QuantityStr => Quantity == 1 ? string.Empty : $"x{Quantity}";
+        public string QuantityStr => Quantity == 1 ? string.Empty : $" x{Quantity}";
     }
 }
