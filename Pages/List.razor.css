@@ -1,0 +1,13 @@
+.card-body {
+    padding: 0;
+}
+
+.card-body ul li {
+    border-radius: 0 !important;
+    border-left: 0;
+    border-right: 0;
+}
+
+.card-body ul li:last-child {
+    border-bottom: 0;
+}

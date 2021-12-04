@@ -26,6 +26,10 @@ namespace ShoppingList.Pages
 
         public Store Store { get; set; }
 
+        public List<Product> ActiveProducts => Store.Products.Where(p => p.Active).ToList();
+
+        public IEnumerable<IGrouping<string, Product>> CategorisedProducts => Store.Products.GroupBy(p => p.CategoryActual);
+
         public void UpdateEmailFormat(string format)
         {
             Store.EmailFormat = format;
@@ -35,6 +39,12 @@ namespace ShoppingList.Pages
         public void ToggleItemActive(Product product)
         {
             product.Active = !product.Active;
+            DataService.SaveChanges();
+        }
+
+        public void ChangeItemQuantity(Product product, int quantity)
+        {
+            product.Quantity = quantity;
             DataService.SaveChanges();
         }
 
@@ -49,7 +59,7 @@ namespace ShoppingList.Pages
             var propertyNames = properties.Select(p => p.Name).ToList();
 
             var lines = new List<string>();
-            foreach (var product in Store.ActiveProducts)
+            foreach (var product in ActiveProducts)
             {
                 var itemStr = Store.EmailFormat;
                 foreach (var p in propertyNames)

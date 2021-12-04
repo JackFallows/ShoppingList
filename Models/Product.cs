@@ -11,8 +11,12 @@ namespace ShoppingList.Models
         public string Preferred { get; set; }
         public List<string> Alternatives { get; set; }
         public bool Active { get; set; }
+        public string Category { get; set; }
 
         [JsonIgnore]
         public string QuantityStr => Quantity == 1 ? string.Empty : $" x{Quantity}";
+
+        [JsonIgnore]
+        public string CategoryActual => Category ?? "Uncategorised";
     }
 }

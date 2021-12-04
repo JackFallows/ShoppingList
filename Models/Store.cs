@@ -11,8 +11,5 @@ namespace ShoppingList.Models
         public string EmailFormat { get; set; }
 
         public List<Product> Products { get; set; }
-
-        [JsonIgnore]
-        public List<Product> ActiveProducts => Products.Where(p => p.Active).ToList();
     }
 }

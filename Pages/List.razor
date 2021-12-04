@@ -7,16 +7,43 @@
 <input class="form-control" type="text" value="@Store.EmailFormat" @onchange="(e) => UpdateEmailFormat((string)e.Value)" />
 
 <h5>Items</h5>
-<ul class="list-group">
-    @foreach (var item in Store.Products)
+<div class="accordion" id="item-categories">
+    @foreach (var category in CategorisedProducts)
     {
-        <li class="list-group-item">
-            <input type="checkbox" checked="@item.Active" @onchange="() => ToggleItemActive(item)" />
-            <a href="/list/@Name/item/@item.ProductName">@item.ProductName</a>
-        </li>
+        <div class="card">
+            <div class="card-header" id="item-heading-@category.Key">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#item-content-@category.Key" aria-expanded="true" aria-controls="item-content-@category.Key">
+                        @category.Key
+                    </button>
+                </h2>
+                
+            </div>
+
+            <div id="item-content-@category.Key" class="collapse show" aria-labelledby="item-heading-@category.Key" data-parent="item-categories">
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach (var item in category)
+                        {
+                            <li class="list-group-item">
+                                <input type="checkbox" checked="@item.Active" @onchange="() => ToggleItemActive(item)" />
+                                <a href="/list/@Name/item/@item.ProductName">@item.ProductName</a>
+                                <select class="float-right" style="width: 40px" @onchange="(e) => ChangeItemQuantity(item, int.Parse((string)e.Value))">
+                                    <option value="1" selected="@(item.Quantity == 1)">1</option>
+                                    <option value="2" selected="@(item.Quantity == 2)">2</option>
+                                    <option value="3" selected="@(item.Quantity == 3)">3</option>
+                                    <option value="4" selected="@(item.Quantity == 4)">4</option>
+                                    <option value="5" selected="@(item.Quantity == 5)">5</option>
+                                </select>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
     }
-</ul>
+</div>
 
 <button class="btn btn-primary" @onclick="AddNewItem">Add item</button>
 
-<button class="btn btn-default" @onclick="GetList">Copy to clipboard</button>
+<button class="btn btn-link" @onclick="GetList">Copy to clipboard</button>
