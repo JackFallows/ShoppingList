@@ -32,6 +32,12 @@ namespace ShoppingList.Pages
             DataService.SaveChanges();
         }
 
+        public void ToggleItemActive(Product product)
+        {
+            product.Active = !product.Active;
+            DataService.SaveChanges();
+        }
+
         public void AddNewItem()
         {
             NavManager.NavigateTo($"/list/{Name}/new");
@@ -43,7 +49,7 @@ namespace ShoppingList.Pages
             var propertyNames = properties.Select(p => p.Name).ToList();
 
             var lines = new List<string>();
-            foreach (var product in Store.Products)
+            foreach (var product in Store.ActiveProducts)
             {
                 var itemStr = Store.EmailFormat;
                 foreach (var p in propertyNames)
