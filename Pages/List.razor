@@ -11,7 +11,7 @@
     @foreach (var item in Store.Products)
     {
         <li class="list-group-item">
-            <input type="checkbox" value="@item.Active" @onchange="() => ToggleItemActive(item)" />
+            <input type="checkbox" checked="@item.Active" @onchange="() => ToggleItemActive(item)" />
             <a href="/list/@Name/item/@item.ProductName">@item.ProductName</a>
         </li>
     }
