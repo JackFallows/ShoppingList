@@ -3,19 +3,24 @@
 <h3>@Store.Name</h3>
 <a href="/">Back to stores list</a>
 
-<h5>Email item format</h5>
+<h5 class="mt-4">Email item format</h5>
 <input class="form-control" type="text" value="@Store.EmailFormat" @onchange="(e) => UpdateEmailFormat((string)e.Value)" />
 
-<h5>Items</h5>
-<div class="accordion" id="item-categories">
+<h5 class="mt-4">Items</h5>
+@if (Store.Products.Any())
+{
+<button class="btn btn-link" @onclick="ToggleCheckAll">@(AllActive ? "Uncheck all" : "Check all")</button>
+}
+
+<div class="accordion mt-3" id="item-categories">
     @foreach (var category in CategorisedProducts.OrderBy(c => c.Key))
     {
         <div class="card">
             <div class="card-header">
-                <h4 class="mb-0">
+                <h5 class="mb-0" style="margin-top: 7px">
                     @category.Key (@category.Count(i => i.Active))
-                    <button class="float-right btn btn-link" @onclick="() => AddNewItem(category.Key)">+</button>
-                </h4>
+                    <button style="margin-top: -7px" class="float-right btn btn-success" @onclick="() => AddNewItem(category.Key)">Add</button>
+                </h5>
                 
             </div>
 
@@ -24,15 +29,20 @@
                     @foreach (var item in category.OrderBy(i => i.ProductName))
                     {
                         <li class="list-group-item">
-                            <input type="checkbox" checked="@item.Active" @onchange="() => ToggleItemActive(item)" />
-                            <a href="/list/@Name/item/@item.ProductName">@item.ProductName</a>
-                            <select class="float-right" style="width: 40px" @onchange="(e) => ChangeItemQuantity(item, int.Parse((string)e.Value))">
-                                <option value="1" selected="@(item.Quantity == 1)">1</option>
-                                <option value="2" selected="@(item.Quantity == 2)">2</option>
-                                <option value="3" selected="@(item.Quantity == 3)">3</option>
-                                <option value="4" selected="@(item.Quantity == 4)">4</option>
-                                <option value="5" selected="@(item.Quantity == 5)">5</option>
-                            </select>
+                            <div style="display: inline-block; margin-top: 7px">
+                                <input type="checkbox" style="margin-right: 10px" checked="@item.Active" @onchange="() => ToggleItemActive(item)" />
+                                <a href="/list/@Name/item/@item.ProductName">@item.ProductName</a>
+                            </div>
+                            <div class="float-right form-inline">
+                                <select class="form-control" style="width: 60px; margin-right: 10px;" @onchange="(e) => ChangeItemQuantity(item, int.Parse((string)e.Value))">
+                                    <option value="1" selected="@(item.Quantity == 1)">1</option>
+                                    <option value="2" selected="@(item.Quantity == 2)">2</option>
+                                    <option value="3" selected="@(item.Quantity == 3)">3</option>
+                                    <option value="4" selected="@(item.Quantity == 4)">4</option>
+                                    <option value="5" selected="@(item.Quantity == 5)">5</option>
+                                </select>
+                                <button class="btn btn-danger" @onclick="() => RemoveItem(item)">Remove</button>
+                            </div>
                         </li>
                     }
                 </ul>
@@ -41,6 +51,8 @@
     }
 </div>
 
-<button class="btn btn-primary" @onclick="() => AddNewItem()">Add item</button>
+<div class="mt-4 mb-4">
+    <button class="btn btn-primary" @onclick="() => AddNewItem()">Add item</button>
+    <button class="btn btn-link" @onclick="GetList">Copy to clipboard</button>
+</div>
 
-<button class="btn btn-link" @onclick="GetList">Copy to clipboard</button>

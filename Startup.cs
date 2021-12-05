@@ -69,7 +69,7 @@ namespace ShoppingList
             var window = await Electron.WindowManager.CreateWindowAsync(new BrowserWindowOptions
             {
                 Width = 1280,
-                Height = 720
+                Height = 1024
             });
             
             window.OnClosed += () =>

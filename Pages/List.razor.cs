@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using ShoppingList.Models;
 using ShoppingList.Services;
+using ShoppingList.Shared;
 
 namespace ShoppingList.Pages
 {
@@ -30,6 +29,8 @@ namespace ShoppingList.Pages
 
         public List<IGrouping<string, Product>> CategorisedProducts => Store.Products?.GroupBy(p => p.CategoryActual).ToList() ?? new();
 
+        public bool AllActive => Store.Products?.All(p => p.Active) ?? false;
+
         public void UpdateEmailFormat(string format)
         {
             Store.EmailFormat = format;
@@ -48,10 +49,23 @@ namespace ShoppingList.Pages
             DataService.SaveChanges();
         }
 
+        public void RemoveItem(Product product)
+        {
+            Store.Products.Remove(product);
+            DataService.SaveChanges();
+        }
+
         public void AddNewItem(string category = null)
         {
             var queryString = category == null ? string.Empty : $"?category={category}";
             NavManager.NavigateTo($"/list/{Name}/new{queryString}");
+        }
+
+        public void ToggleCheckAll()
+        {
+            var allActive = AllActive; // get the value once at the beginning
+            Store.Products.ForEach(p => p.Active = !allActive);
+            DataService.SaveChanges();
         }
 
         public async void GetList()

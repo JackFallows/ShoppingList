@@ -11,5 +11,8 @@ namespace ShoppingList.Models
         public string EmailFormat { get; set; }
 
         public List<Product> Products { get; set; }
+
+        [JsonIgnore]
+        public bool HasProducts => Products?.Count > 0;
     }
 }
