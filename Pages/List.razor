@@ -19,7 +19,7 @@
             <div class="card-header">
                 <h5 class="mb-0" style="margin-top: 7px">
                     @category.Key (@category.Count(i => i.Active))
-                    <button style="margin-top: -7px" class="float-right btn btn-success" @onclick="() => AddNewItem(category.Key)">Add</button>
+                    <button style="margin-top: -7px" class="float-right btn btn-success" @onclick="() => AddNewItem(category.Key)">+</button>
                 </h5>
                 
             </div>
@@ -33,15 +33,17 @@
                                 <input type="checkbox" style="margin-right: 10px" checked="@item.Active" @onchange="() => ToggleItemActive(item)" />
                                 <a href="/list/@Name/item/@item.ProductName">@item.ProductName</a>
                             </div>
-                            <div class="float-right form-inline">
-                                <select class="form-control" style="width: 60px; margin-right: 10px;" @onchange="(e) => ChangeItemQuantity(item, int.Parse((string)e.Value))">
+                            <div class="float-right form-inline input-group" style="width: 100px">
+                                <select class="form-control" @onchange="(e) => ChangeItemQuantity(item, int.Parse((string)e.Value))">
                                     <option value="1" selected="@(item.Quantity == 1)">1</option>
                                     <option value="2" selected="@(item.Quantity == 2)">2</option>
                                     <option value="3" selected="@(item.Quantity == 3)">3</option>
                                     <option value="4" selected="@(item.Quantity == 4)">4</option>
                                     <option value="5" selected="@(item.Quantity == 5)">5</option>
                                 </select>
-                                <button class="btn btn-danger" @onclick="() => RemoveItem(item)">Remove</button>
+                                <div class="input-group-append">
+                                    <button class="btn btn-danger" @onclick="() => RemoveItem(item)">x</button>
+                                </div>
                             </div>
                         </li>
                     }

@@ -8,7 +8,7 @@ namespace ShoppingList.Services
 {
     public class DataService
     {
-        private string filePath = @"C:\Users\jack_\Desktop\shoppinglist.json";
+        private string filePath = @"C:\shoppinglist.json";
 
         public DataService()
         {

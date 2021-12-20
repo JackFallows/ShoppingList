@@ -3,13 +3,12 @@
 
 <h3>Stores</h3>
 
-<ul>
+<ul class="list-group">
     @foreach (var store in DataService.Stores)
     {
-        <li>
-            <input value="@store.Name" @onchange="(e) => UpdateStore(store, (string)e.Value)" @oninput="ClearValidation" />
-            <button disabled="@store.HasProducts" @onclick="() => RemoveStore(store.Name)">Remove</button>
-            <a href="/list/@store.Name">Go to list</a>
+        <li class="list-group-item">
+            <a href="/list/@store.Name">@store.Name</a>
+            <button class="float-right" disabled="@store.HasProducts" @onclick="() => RemoveStore(store.Name)">Remove</button>
         </li>
     }
 </ul>

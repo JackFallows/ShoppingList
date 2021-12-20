@@ -15,7 +15,15 @@
 
 <div class="form-group">
     <label for="product-url">URL</label>
-    <input type="text" class="form-control" id="product-url" @bind="Product.Preferred" />
+    <div class="input-group">
+        <input type="text" class="form-control" id="product-url" @bind="Product.Preferred" />
+        @if (!string.IsNullOrWhiteSpace(Product.Preferred))
+        {
+            <div class="input-group-append">
+                <a href="@Product.Preferred" target="_blank">View</a>
+            </div>
+        }
+    </div>
 </div>
 
 <button class="btn btn-primary" @onclick="Save">Save</button>

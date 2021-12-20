@@ -25,15 +25,6 @@ namespace ShoppingList.Pages
             });
         }
 
-        public void UpdateStore(Store store, string newName)
-        {
-            ValidateStore(newName, store, () =>
-            {
-                store.Name = newName;
-                DataService.SaveChanges();
-            });
-        }
-
         public void RemoveStore(string name)
         {
             DataService.DeleteStore(name);

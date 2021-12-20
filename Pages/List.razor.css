@@ -11,3 +11,16 @@
 .card-body ul li:last-child {
     border-bottom: 0;
 }
+
+@media (max-width: 640.98px) {
+    .accordion {
+        margin-left: -24px;
+        margin-right: -24px;
+    }
+
+    .card {
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+    }
+}

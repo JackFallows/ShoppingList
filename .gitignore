@@ -2,3 +2,5 @@
 bin
 obj
 nuget.config
+/ShoppingList.csproj.user
+/.vs/ShoppingList/config/applicationhost.config
