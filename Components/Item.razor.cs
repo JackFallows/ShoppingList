@@ -73,7 +73,7 @@ namespace ShoppingList.Components
                 IsNew = true;
             }
 
-            Product = existing ?? new Product { Category = CategoryName };
+            Product = existing ?? new Product { Category = CategoryName, Active = true };
         }
     }
 }

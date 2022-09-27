@@ -12,9 +12,9 @@
       "commandName": "Executable",
       "executablePath": "electronize",
       "commandLineArgs": "start",
-      "workingDirectory": "."
+      "workingDirectory": ".",
+      "environmentVariables": {}
     },
-
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
@@ -24,7 +24,6 @@
     },
     "ShoppingList": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
       "launchBrowser": true,
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {

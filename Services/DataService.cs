@@ -8,7 +8,7 @@ namespace ShoppingList.Services
 {
     public class DataService
     {
-        private string filePath = @"C:\shoppinglist.json";
+        private string filePath = AppSettings.FileLocation;
 
         public DataService()
         {
