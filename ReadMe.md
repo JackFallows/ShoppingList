@@ -1,3 +1,7 @@
+# ShoppingList
+
+Blazor web app that can be run inside electron for creating shopping lists.
+
 # Run
 ```electronize start```
 
