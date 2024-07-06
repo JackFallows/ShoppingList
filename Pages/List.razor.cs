@@ -75,9 +75,10 @@ namespace ShoppingList.Pages
             DataService.SaveChanges();
         }
 
-        public void AddNewItem(string category = null)
+        public async Task AddNewItem(string category = null)
         {
             var queryString = category == null ? string.Empty : $"?category={category}";
+            await SaveScrollPosition();
             NavManager.NavigateTo($"/list/{Name}/new{queryString}");
         }
 
