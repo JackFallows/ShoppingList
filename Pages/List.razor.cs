@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using ShoppingList.Models;
@@ -29,6 +30,26 @@ namespace ShoppingList.Pages
         public List<IGrouping<string, Product>> CategorisedProducts => Store.Products?.GroupBy(p => p.CategoryActual).ToList() ?? new();
 
         public bool AllActive => Store.Products?.All(p => p.Active) ?? false;
+        
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Store = DataService.GetStore(Name);
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await JSRuntime.InvokeVoidAsync("window.restoreScrollPosition");
+            }
+        }
+
+        private async Task SaveScrollPosition()
+        {
+            await JSRuntime.InvokeVoidAsync("window.saveScrollPosition");
+        }
 
         public void UpdateEmailFormat(string format)
         {
@@ -85,13 +106,6 @@ namespace ShoppingList.Pages
             }
 
             await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", string.Join(Environment.NewLine, lines));
-        }
-
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            Store = DataService.GetStore(Name);
         }
     }
 }
