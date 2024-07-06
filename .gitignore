@@ -4,3 +4,4 @@ obj
 nuget.config
 /ShoppingList.csproj.user
 .vs
+.idea
